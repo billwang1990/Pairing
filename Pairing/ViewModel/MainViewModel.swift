@@ -110,7 +110,7 @@ struct MainViewModel {
     
     private mutating func generateDefaultData() {
         if !alreadyAppendDefaultPerson {
-            [].forEach({
+            ["李宇", "李文", "王昕", "张鑫", "曾杨", "司机", "唐真", "杨洁", "凤凤", "yaqing"].forEach({
                 self.updatePerson(personName: $0)
             })
         }
