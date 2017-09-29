@@ -1,0 +1,46 @@
+PODS:
+  - PopupDialog (0.5.4)
+  - Realm (2.8.2):
+    - Realm/Headers (= 2.8.2)
+  - Realm/Headers (2.8.2)
+  - RealmSwift (2.8.2):
+    - Realm (= 2.8.2)
+  - RxCocoa (3.6.1):
+    - RxSwift (~> 3.6)
+  - RxSwift (3.6.1)
+  - SlideMenuControllerSwift (3.0.2)
+  - SnapKit (3.0.0)
+  - Spring (1.0.3)
+
+DEPENDENCIES:
+  - PopupDialog (~> 0.5.0)
+  - RealmSwift (= 2.8.2)
+  - RxCocoa (~> 3.0)
+  - RxSwift (~> 3.0)
+  - SlideMenuControllerSwift
+  - SnapKit (= 3.0.0)
+  - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
+
+EXTERNAL SOURCES:
+  Spring:
+    :branch: swift3
+    :git: https://github.com/MengTo/Spring.git
+
+CHECKOUT OPTIONS:
+  Spring:
+    :commit: 8201b5c93bd7ebdf4cd18160bcde1e6e88c2be64
+    :git: https://github.com/MengTo/Spring.git
+
+SPEC CHECKSUMS:
+  PopupDialog: 75cf955693590b0cb2fdde00223fb65d99c57247
+  Realm: 0e262abf087c7054013e00579274f7e070486d4a
+  RealmSwift: 73565e91bc403c1149e4acf31ff9de506b2f9459
+  RxCocoa: 84a08739ab186248c7f31ce4ee92d6f8a947d690
+  RxSwift: f9de85ea20cd2f7716ee5409fc13523dc638e4e4
+  SlideMenuControllerSwift: 16001e1fd9963fd089fa6c91dbe18d4c148f0ce9
+  SnapKit: 98af0a4e9369d3c58f758967518081dbdc7eb1d9
+  Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
+
+PODFILE CHECKSUM: e135fdddafa8579ae2d5f2b850c687c9485a3cf9
+
+COCOAPODS: 1.1.1
