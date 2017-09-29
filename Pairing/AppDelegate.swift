@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SlideMenuControllerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        let mainViewController = UINavigationController(rootViewController: ViewController())
+        let rightMenuViewController = UINavigationController(rootViewController: StoredPersonsListViewController())
+
+        SlideMenuOptions.rightViewWidth = UIScreen.main.bounds.size.width * 0.7
+        SlideMenuOptions.contentViewScale = 1
+        SlideMenuOptions.rightPanFromBezel = true
+        let slideMenuController = SlideMenuController(mainViewController: mainViewController, rightMenuViewController: rightMenuViewController)
+        self.window?.rootViewController = slideMenuController
+        self.window?.makeKeyAndVisible()
+        
+
         return true
     }
 
@@ -40,7 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 
