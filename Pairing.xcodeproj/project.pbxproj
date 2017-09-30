@@ -20,6 +20,8 @@
 		C863FBFC1F7DFBAA00665BB4 /* PersonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C863FBFA1F7DFBAA00665BB4 /* PersonTableViewCell.xib */; };
 		C863FBFE1F7E020B00665BB4 /* UIViewController+NavItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C863FBFD1F7E020B00665BB4 /* UIViewController+NavItem.swift */; };
 		C8FEC62E1F7F88CE00DF9E90 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FEC62D1F7F88CE00DF9E90 /* UIColor+Hex.swift */; };
+		C8FEC6321F7F94FA00DF9E90 /* SoundEffectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FEC6311F7F94FA00DF9E90 /* SoundEffectManager.swift */; };
+		C8FEC6341F7F952500DF9E90 /* shake_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = C8FEC6331F7F952500DF9E90 /* shake_sound.wav */; };
 		D7EEA6C57B91315B34985154 /* Pods_Pairing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C18259E9A4DC858F4DA607D7 /* Pods_Pairing.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +44,8 @@
 		C863FBFA1F7DFBAA00665BB4 /* PersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PersonTableViewCell.xib; path = Views/PersonTableViewCell.xib; sourceTree = "<group>"; };
 		C863FBFD1F7E020B00665BB4 /* UIViewController+NavItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavItem.swift"; sourceTree = "<group>"; };
 		C8FEC62D1F7F88CE00DF9E90 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		C8FEC6311F7F94FA00DF9E90 /* SoundEffectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundEffectManager.swift; path = Service/SoundEffectManager.swift; sourceTree = "<group>"; };
+		C8FEC6331F7F952500DF9E90 /* shake_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = shake_sound.wav; path = Sound/shake_sound.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,16 +99,16 @@
 			isa = PBXGroup;
 			children = (
 				C863FBDE1F7CEA8B00665BB4 /* AppDelegate.swift */,
-				C863FBE01F7CEA8B00665BB4 /* ViewController.swift */,
-				C863FBF71F7DFB3B00665BB4 /* StoredPersonsListViewController.swift */,
+				C8FEC6301F7F94DE00DF9E90 /* Controllers */,
 				C863FBF61F7DFA0C00665BB4 /* Views */,
 				C863FBF01F7CF1CE00665BB4 /* MainViewModel.swift */,
 				C863FBE21F7CEA8B00665BB4 /* Main.storyboard */,
 				C863FBE51F7CEA8B00665BB4 /* Assets.xcassets */,
 				C863FBE71F7CEA8B00665BB4 /* LaunchScreen.storyboard */,
 				C863FBEA1F7CEA8B00665BB4 /* Info.plist */,
-				C863FBFD1F7E020B00665BB4 /* UIViewController+NavItem.swift */,
-				C8FEC62D1F7F88CE00DF9E90 /* UIColor+Hex.swift */,
+				C8FEC62F1F7F94D100DF9E90 /* Extensions */,
+				C8FEC6311F7F94FA00DF9E90 /* SoundEffectManager.swift */,
+				C8FEC6331F7F952500DF9E90 /* shake_sound.wav */,
 			);
 			path = Pairing;
 			sourceTree = "<group>";
@@ -118,6 +122,24 @@
 				C863FBFA1F7DFBAA00665BB4 /* PersonTableViewCell.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		C8FEC62F1F7F94D100DF9E90 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C863FBFD1F7E020B00665BB4 /* UIViewController+NavItem.swift */,
+				C8FEC62D1F7F88CE00DF9E90 /* UIColor+Hex.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		C8FEC6301F7F94DE00DF9E90 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C863FBE01F7CEA8B00665BB4 /* ViewController.swift */,
+				C863FBF71F7DFB3B00665BB4 /* StoredPersonsListViewController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +209,7 @@
 				C863FBF51F7DFA0600665BB4 /* PairTableViewCell.xib in Resources */,
 				C863FBE61F7CEA8B00665BB4 /* Assets.xcassets in Resources */,
 				C863FBE41F7CEA8B00665BB4 /* Main.storyboard in Resources */,
+				C8FEC6341F7F952500DF9E90 /* shake_sound.wav in Resources */,
 				C863FBFC1F7DFBAA00665BB4 /* PersonTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,6 +276,7 @@
 				C863FBF41F7DFA0600665BB4 /* PairTableViewCell.swift in Sources */,
 				C863FBDF1F7CEA8B00665BB4 /* AppDelegate.swift in Sources */,
 				C863FBF81F7DFB3B00665BB4 /* StoredPersonsListViewController.swift in Sources */,
+				C8FEC6321F7F94FA00DF9E90 /* SoundEffectManager.swift in Sources */,
 				C863FBF11F7CF1CE00665BB4 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

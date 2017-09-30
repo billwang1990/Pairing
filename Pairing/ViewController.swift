@@ -10,11 +10,12 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import CoreMotion
+
 class ViewController: UIViewController {
     fileprivate let viewModel = MainViewModel()
     private let disposeBag = DisposeBag()
-    
-    
+
     lazy var table: UITableView = {
         let table = UITableView(frame: CGRect.zero, style: .plain)
         self.view.addSubview(table)
@@ -47,7 +48,29 @@ class ViewController: UIViewController {
         bindViewModel()
         viewModel.generatePairs(includeInactivePerson: false)
         navigationItem.title = "Find your pair"
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.becomeFirstResponder()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.resignFirstResponder()
+        super.viewWillDisappear(animated)
+    }
+
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            delayInMainQueue(0.5, closure: {
+                SoundEffectManager.shareInstance.playEffect()
+                self.viewModel.generatePairs(includeInactivePerson: false)
+            })
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,7 +84,6 @@ class ViewController: UIViewController {
             self?.table.reloadData()
         }).addDisposableTo(disposeBag)
     }
-
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -81,10 +103,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.transform = CGAffineTransform(scaleX: 1.2, y: 1.1)
-        UIView.animate(withDuration: 0.5) {
+        cell.transform = CGAffineTransform(scaleX: 1.5, y: 1.2)
+        UIView.animate(withDuration: 1) {
             cell.transform = CGAffineTransform.identity
         }
     }
 
 }
+
+func delayInMainQueue(_ delay: Double, closure:@escaping ()->Void) {
+    DispatchQueue.main.asyncAfter(
+        deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure
+    )
+}
+
