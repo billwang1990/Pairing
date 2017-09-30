@@ -19,6 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         
+        UINavigationBar.appearance().tintColor = UIColor.black
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.black, NSFontAttributeName: UIFont.systemFont(ofSize: 25)]
+        UIApplication.shared.statusBarStyle = .default
+        
         let mainViewController = UINavigationController(rootViewController: ViewController())
         let rightMenuViewController = UINavigationController(rootViewController: StoredPersonsListViewController())
 

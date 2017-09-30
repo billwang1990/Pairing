@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         })
         table.tableFooterView = UIView()
         
-        table.backgroundColor = .white
+        table.backgroundColor = UIColor(rgba: "#F8F8F8")
         table.rowHeight = 50
         table.separatorStyle = .none
         table.delegate = self
@@ -36,14 +36,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        setRightNavigationItem("Manage Person") { [weak self] in
+        setRightNavigationItem("Manage") { [weak self] in
             self?.slideMenuController()?.openRight()
         }
         
         setLeftNavigationItem("Pair") { [weak self] in
             self?.viewModel.generatePairs(includeInactivePerson: false)
         }
+        
         bindViewModel()
+        viewModel.generatePairs(includeInactivePerson: false)
+        navigationItem.title = "Find your pair"
         
     }
     

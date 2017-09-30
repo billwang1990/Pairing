@@ -19,6 +19,7 @@
 		C863FBFB1F7DFBAA00665BB4 /* PersonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C863FBF91F7DFBAA00665BB4 /* PersonTableViewCell.swift */; };
 		C863FBFC1F7DFBAA00665BB4 /* PersonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C863FBFA1F7DFBAA00665BB4 /* PersonTableViewCell.xib */; };
 		C863FBFE1F7E020B00665BB4 /* UIViewController+NavItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C863FBFD1F7E020B00665BB4 /* UIViewController+NavItem.swift */; };
+		C8FEC62E1F7F88CE00DF9E90 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FEC62D1F7F88CE00DF9E90 /* UIColor+Hex.swift */; };
 		D7EEA6C57B91315B34985154 /* Pods_Pairing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C18259E9A4DC858F4DA607D7 /* Pods_Pairing.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		C863FBF91F7DFBAA00665BB4 /* PersonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonTableViewCell.swift; path = Views/PersonTableViewCell.swift; sourceTree = "<group>"; };
 		C863FBFA1F7DFBAA00665BB4 /* PersonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PersonTableViewCell.xib; path = Views/PersonTableViewCell.xib; sourceTree = "<group>"; };
 		C863FBFD1F7E020B00665BB4 /* UIViewController+NavItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavItem.swift"; sourceTree = "<group>"; };
+		C8FEC62D1F7F88CE00DF9E90 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				C863FBE71F7CEA8B00665BB4 /* LaunchScreen.storyboard */,
 				C863FBEA1F7CEA8B00665BB4 /* Info.plist */,
 				C863FBFD1F7E020B00665BB4 /* UIViewController+NavItem.swift */,
+				C8FEC62D1F7F88CE00DF9E90 /* UIColor+Hex.swift */,
 			);
 			path = Pairing;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C863FBFB1F7DFBAA00665BB4 /* PersonTableViewCell.swift in Sources */,
+				C8FEC62E1F7F88CE00DF9E90 /* UIColor+Hex.swift in Sources */,
 				C863FBE11F7CEA8B00665BB4 /* ViewController.swift in Sources */,
 				C863FBFE1F7E020B00665BB4 /* UIViewController+NavItem.swift in Sources */,
 				C863FBF41F7DFA0600665BB4 /* PairTableViewCell.swift in Sources */,

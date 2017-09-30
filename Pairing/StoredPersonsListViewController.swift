@@ -39,9 +39,10 @@ class StoredPersonsListViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        setLeftNavigationItem("Add new") { [weak self] in
+        setLeftNavigationItem("New") { [weak self] in
             self?.addNew()
         }
+        navigationItem.title = "All Devs"
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,7 +56,7 @@ class StoredPersonsListViewController: UIViewController {
     }
     
     func addNew() {
-        let alertController = UIAlertController(title: "Add New Name", message: "", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "New dev name", message: "", preferredStyle: .alert)
         
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: { [weak self] _ in
             let firstTextField = alertController.textFields![0] as UITextField

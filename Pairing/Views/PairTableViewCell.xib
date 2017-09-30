@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,49 +11,52 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PairTableViewCell" id="KGk-i7-Jjw" customClass="PairTableViewCell" customModule="Pairing" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PairTableViewCell" id="KGk-i7-Jjw" customClass="PairTableViewCell" customModule="Pairing" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMe-l1-wy1">
-                        <rect key="frame" x="48" y="19.5" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMe-l1-wy1">
+                        <rect key="frame" x="16" y="19.5" width="116" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ix1-Xc-WNS">
-                        <rect key="frame" x="230" y="19.5" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ix1-Xc-WNS">
+                        <rect key="frame" x="188" y="19.5" width="116" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thunder" translatesAutoresizingMaskIntoConstraints="NO" id="3Zj-hV-Aeg">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="3Zj-hV-Aeg">
                         <rect key="frame" x="140" y="10" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="T1o-Pp-waU"/>
                             <constraint firstAttribute="width" constant="40" id="Vga-Le-cMd"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pikaqiu" translatesAutoresizingMaskIntoConstraints="NO" id="u4v-ON-Bmd">
-                        <rect key="frame" x="221" y="-0.5" width="60" height="60"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dogge" translatesAutoresizingMaskIntoConstraints="NO" id="u4v-ON-Bmd">
+                        <rect key="frame" x="221" y="4.5" width="50" height="50"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="60" id="Eam-sx-Dwb"/>
-                            <constraint firstAttribute="width" constant="60" id="i0k-5S-oMz"/>
+                            <constraint firstAttribute="height" constant="50" id="Eam-sx-Dwb"/>
+                            <constraint firstAttribute="width" constant="50" id="i0k-5S-oMz"/>
                         </constraints>
                     </imageView>
                 </subviews>
+                <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="3Zj-hV-Aeg" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="ISu-Pd-g8s"/>
                     <constraint firstItem="3Zj-hV-Aeg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="JMU-Jo-eQw"/>
                     <constraint firstItem="u4v-ON-Bmd" firstAttribute="centerX" secondItem="ix1-Xc-WNS" secondAttribute="centerX" id="Jwu-q8-anV"/>
                     <constraint firstItem="u4v-ON-Bmd" firstAttribute="centerY" secondItem="ix1-Xc-WNS" secondAttribute="centerY" id="LBy-hh-tMM"/>
                     <constraint firstItem="ix1-Xc-WNS" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="N9y-h6-xee"/>
-                    <constraint firstItem="EMe-l1-wy1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="40" id="iRd-c7-K0D"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="ix1-Xc-WNS" secondAttribute="trailing" constant="40" id="rAA-gi-Ojt"/>
+                    <constraint firstItem="EMe-l1-wy1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="ZfV-ww-N9M"/>
+                    <constraint firstItem="ix1-Xc-WNS" firstAttribute="leading" secondItem="3Zj-hV-Aeg" secondAttribute="trailing" constant="8" id="cqE-br-gDl"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ix1-Xc-WNS" secondAttribute="trailing" constant="8" id="rAA-gi-Ojt"/>
                     <constraint firstItem="EMe-l1-wy1" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rpV-cN-rVo"/>
+                    <constraint firstItem="3Zj-hV-Aeg" firstAttribute="leading" secondItem="EMe-l1-wy1" secondAttribute="trailing" constant="8" id="vor-kx-qdg"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -65,7 +67,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="pikaqiu" width="64" height="64"/>
-        <image name="thunder" width="64" height="64"/>
+        <image name="dogge" width="105" height="115"/>
+        <image name="heart" width="100" height="100"/>
     </resources>
 </document>
