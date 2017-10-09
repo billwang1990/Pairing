@@ -14,13 +14,15 @@ final class SoundEffectManager {
     }
     
     func playEffect() {
-        
         if let url = URL(string: Bundle.main.path(forResource: "shake_sound", ofType: "wav")!) {
             let _ = try? audioSesstion?.setActive(true)
             player = try! AVAudioPlayer(contentsOf: url)
             player?.play()
             player?.delegate = nil
         }
+        
+        let soundID = SystemSoundID(kSystemSoundID_Vibrate)
+        AudioServicesPlaySystemSound(soundID)
     }
     
 }
