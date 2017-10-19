@@ -1,0 +1,46 @@
+dea/
+build/
+*.ipa
+*.dSYM.zip
+
+Pairing.xcworkspace/
+Pairing.xcodeproj/xcuserdata/*
+Pairing.xcodeproj/project.xcworkspace/xcuserdata/*
+
+# CocoaPods
+#
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
+#
+
+fastlane/screenshots/*/*.png
+fastlane/metadata/
+
+!*.keyword.strings
+!*.title.strings
+!screenshot/background.jpg
+!screenshot/Framefile.json
+
+Pods/*
+# Podfile.lock
+
+*/xcuserdata
+build/*
+
+*.generated.swift
+
+*.realm
+
+# Mac OS X
+.DS_Store
+
+# Quick
+Quick.framework.zip
+report.xml
+
+# Carthage
+Carthage/Build
+screenshots.html
+Preview.html
+fastlane/README.md
