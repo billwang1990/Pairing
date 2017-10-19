@@ -60,7 +60,8 @@ class StoredPersonsListViewController: UIViewController {
         
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: { [weak self] _ in
             let firstTextField = alertController.textFields![0] as UITextField
-            if let name = firstTextField.text {
+            if let name = firstTextField.text  {
+                guard !name.isEmpty else { return }
                 self?.viewModel.updatePerson(personName: name)
                 self?.refresh()
             }
