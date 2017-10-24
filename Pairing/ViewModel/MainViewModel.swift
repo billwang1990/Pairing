@@ -24,6 +24,23 @@ class Person: Object {
     }
 }
 
+class PersonName: Object {
+    dynamic var name: String = ""
+    
+    override static func primaryKey() -> String? {
+        return "name"
+    }
+}
+
+class PersonSort: Object {
+    let sortList = List<PersonName>()
+    dynamic var personSortKey: String = "sortList"
+    
+    override static func primaryKey() -> String? {
+        return "personSortKey"
+    }
+}
+
 
 struct MainViewModel {
     let pairs: Variable<[Pairing]> = Variable([])
@@ -45,40 +62,6 @@ struct MainViewModel {
         return realm
     }
     
-    func retrieveAllPersons() -> [Person] {
-        return sharedRealm.objects(Person.self).map{$0}
-    }
-    
-    private func retrievePersons(includeInactivePerson: Bool = true) -> [String] {
-        let personsName = retrieveAllPersons().flatMap { p -> String? in
-            if includeInactivePerson {
-                return p.name
-            } else {
-                return p.isActive ? p.name : nil
-            }
-        }
-        
-        return personsName
-    }
-    
-    @discardableResult func generatePairs(includeInactivePerson: Bool = true) -> [Pairing] {
-        let personsName = retrievePersons(includeInactivePerson: includeInactivePerson).sorted { _ in
-            return Int(arc4random_uniform(100)) > 50
-        }
-        
-        var startIndex = 0
-        var result: [Pairing] = []
-        
-        while startIndex < personsName.count {
-            let firstGuy = personsName[startIndex]
-            let secondGuy = startIndex+1 < personsName.count ? personsName[startIndex+1] : nil
-            result.append(Pairing(firstPersonName: firstGuy, secondPersonName: secondGuy))
-            startIndex += 2
-        }
-        pairs.value = result
-        return result
-    }
-    
     func updatePerson(personName: String, isActive: Bool = true) {
         let person = Person()
         person.isActive = isActive
@@ -86,6 +69,19 @@ struct MainViewModel {
         
         try! sharedRealm.write {
             sharedRealm.add(person, update: true)
+        }
+    }
+    
+    func updateSort(CurrentSort: Array<String>) {
+        let personSort = PersonSort()
+        for personName in CurrentSort {
+            let person = PersonName()
+            person.name = personName
+            personSort.sortList.append(person)
+        }
+        
+        try! sharedRealm.write {
+            sharedRealm.add(personSort, update: true)
         }
     }
     
@@ -99,6 +95,129 @@ struct MainViewModel {
         }
     }
     
+    
+    func retrieveAllPersons() -> [Person] {
+        return sharedRealm.objects(Person.self).map{$0}
+    }
+    
+    func retrieveLastSort() -> PersonSort {
+        return sharedRealm.objects(PersonSort.self).last!
+    }
+    
+    private func retrievePersons(includeInactivePerson: Bool) -> [(name: String, isActive: Bool)] {
+        let personsName = retrieveAllPersons().flatMap { p -> (name: String, isActive: Bool)? in
+            if includeInactivePerson {
+                return (name: p.name, isActive: p.isActive)
+            } else {
+                return p.isActive ? (name: p.name, isActive: p.isActive) : nil
+            }
+            
+        }
+        
+        return personsName
+    }
+    
+    @discardableResult func generatePairs(includeInactivePerson: Bool = true) -> [Pairing] {
+        let personsName = retrievePersons(includeInactivePerson: includeInactivePerson).sorted { _ in
+            return Int(arc4random_uniform(100)) > 50
+        }
+        
+        let defaultPersonsName = retrievePersons(includeInactivePerson: true)
+        let activePersonsName = retrievePersons(includeInactivePerson: false)
+        var lastPersonsSortList = [String]()
+        for personInList in retrieveLastSort().sortList {
+            lastPersonsSortList.append(personInList.name)
+        }
+        
+       let newPersonList = getNewPerson(activePersonsName: activePersonsName, lastPersonsSortList: lastPersonsSortList)
+
+        let (lastPersonsSortListWithoutInActivePerson, pairInActivePersonList) = getPairInActivePerson(defaultPersonsName:defaultPersonsName, lastPersonsSortList: lastPersonsSortList)
+        
+        let personsWillSortList = getSortedPersonList(pairInActivePersonList:pairInActivePersonList, newPersonList:newPersonList, lastPersonsSortListWithoutInActivePerson: lastPersonsSortListWithoutInActivePerson)
+       
+        let personOrderIndexList = getUnRepeatPairOrder(numberOfPerson: personsWillSortList.count)
+        
+        var currentSort = [String]()
+        for index in personOrderIndexList {
+            currentSort.append(personsWillSortList[index])
+        }
+        
+        var startIndex = 0
+        var result: [Pairing] = []
+        
+       
+        while startIndex < personsName.count {
+            let firstGuy = personsName[startIndex]
+            let secondGuy = startIndex+1 < personsName.count ? personsName[startIndex+1] : nil
+            result.append(Pairing(firstPersonName: firstGuy.name, secondPersonName: secondGuy?.name))
+            startIndex += 2
+        }
+        
+        updateSort(CurrentSort: currentSort)
+        
+        pairs.value = result
+        return result
+    }
+    
+    func getSortedPersonList(pairInActivePersonList:Array<String>, newPersonList: Array<String>, lastPersonsSortListWithoutInActivePerson: Array<String>) -> Array<String> {
+        var personsWillSortList = [String]()
+        
+        for person in lastPersonsSortListWithoutInActivePerson {
+            personsWillSortList.append(person)
+        }
+        
+        for person in pairInActivePersonList {
+            personsWillSortList.append(person)
+        }
+        
+        for person in newPersonList {
+            personsWillSortList.append(person)
+        }
+        
+        return personsWillSortList
+    }
+    
+    func getPairInActivePerson(defaultPersonsName: [(name: String, isActive: Bool)], lastPersonsSortList: [String]) -> (Array<String>, Array<String>) {
+        var lastPersonsSortListWithoutInActivePerson = lastPersonsSortList
+         var pairInActivePersonList = [String]()
+        for (index, personTuple) in defaultPersonsName.enumerated() {
+            var userPair: String = ""
+            let (name, isActive) = personTuple
+            
+            let userIndexInLastSort = lastPersonsSortList.index(of: name)
+            if !isActive && (userIndexInLastSort != nil) {
+                
+                if (userIndexInLastSort! % 2 == 0) {
+                    userPair = lastPersonsSortList[userIndexInLastSort!+1]
+                    lastPersonsSortListWithoutInActivePerson.remove(at: userIndexInLastSort!+1)
+                    lastPersonsSortListWithoutInActivePerson.remove(at: userIndexInLastSort!)
+                } else {
+                    userPair = lastPersonsSortList[userIndexInLastSort!-1]
+                    lastPersonsSortListWithoutInActivePerson.remove(at: userIndexInLastSort!)
+                    lastPersonsSortListWithoutInActivePerson.remove(at: userIndexInLastSort!-1)
+                }
+                
+                pairInActivePersonList.append(userPair)
+            }
+        }
+        
+        return (lastPersonsSortListWithoutInActivePerson, pairInActivePersonList)
+    }
+    
+    func getNewPerson(activePersonsName: [(name: String, isActive: Bool)], lastPersonsSortList: [String]) -> Array<String> {
+        var newPersonList = [String]()
+        for (index, personTuple) in activePersonsName.enumerated() {
+            let (name, isActive) = personTuple
+            let userIndexInLastSort = lastPersonsSortList.index(of: name)
+            if (userIndexInLastSort != nil) {
+                continue
+            } else {
+                newPersonList.append(name)
+            }
+        }
+        return newPersonList
+    }
+    
     private var alreadyAppendDefaultPerson: Bool {
         get {
             return UserDefaults.standard.bool(forKey: "alreadyAppendDefaultPerson")
@@ -109,13 +228,69 @@ struct MainViewModel {
     }
     
     private mutating func generateDefaultData() {
+        
         if !alreadyAppendDefaultPerson {
             ["李宇", "李文", "王昕", "张鑫", "曾杨", "司机", "唐真", "杨洁", "凤凤", "yaqing"].forEach({
+                print($0)
                 self.updatePerson(personName: $0)
             })
         }
+        
+        self.updateSort(CurrentSort: ["李宇", "李文", "王昕", "张鑫", "曾杨", "司机", "唐真", "杨洁", "凤凤", "yaqing"])
         alreadyAppendDefaultPerson = true
     }
+}
+
+func getUnRepeatPairOrder(numberOfPerson: Int) -> Array<Int> {
+    // TODO: refactor the whole algorithm
+    var OCCUPIED = -1
+    var FREE = 0
+    var width = numberOfPerson
+    var lastRow = numberOfPerson - 1
+    var numberOfDiagonals = 2 * numberOfPerson - 1
+    var columns = Array(repeating: -1, count: numberOfPerson)
+    var leftDiagonals = Array(repeating: 0, count: numberOfDiagonals)
+    var rightDiagonals = Array(repeating: 0, count: numberOfDiagonals)
+    var solutions = Array<Array<Int>>()
+    
+    func calculate(raw: Int = 0) {
+        for column in 0..<width {
+            let ixDiag1 = column + raw
+            let ixDiag2 = width - 1 - raw + column
+            
+            if columns[column] >= 0 {
+                continue
+            }
+            
+            if leftDiagonals[ixDiag1] == OCCUPIED {
+                continue
+            }
+            
+            if rightDiagonals[ixDiag2] == OCCUPIED {
+                continue
+            }
+            
+            columns[column] = raw
+            leftDiagonals[ixDiag1] = OCCUPIED
+            rightDiagonals[ixDiag2] = OCCUPIED
+            
+            
+            if raw == lastRow {
+                solutions.append(columns)
+            } else {
+                calculate(raw: raw + 1)
+            }
+            
+            columns[column] = -1
+            leftDiagonals[ixDiag1] = FREE
+            rightDiagonals[ixDiag2] = FREE
+        }
+    }
+    calculate()
+    let numberOfSolution = solutions.count
+    
+    let randomOrder = Int(arc4random_uniform(UInt32(numberOfSolution)))
+    return solutions[randomOrder]
 }
 
 extension Array {
