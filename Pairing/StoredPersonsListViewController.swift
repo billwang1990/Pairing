@@ -43,13 +43,26 @@ class StoredPersonsListViewController: UIViewController {
             self?.addNew()
         }
         navigationItem.title = "All Devs"
+
+        let longPressGr = UILongPressGestureRecognizer(target: self, action:  #selector(longPressToDo))
+        longPressGr.minimumPressDuration = 1.0
+        table.addGestureRecognizer(longPressGr)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
+    func longPressToDo(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
+            let touchPoint = longPressGestureRecognizer.location(in: table)
+            if let indexPath = table.indexPathForRow(at: touchPoint) {
+                deletePerson(index: indexPath.row)
+            }
+        }
+    }
+
     fileprivate func refresh() {
         storedPerson = viewModel.retrieveAllPersons()
         table.reloadData()
@@ -82,6 +95,23 @@ class StoredPersonsListViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
 
+    func deletePerson(index: Int) {
+        let alertController = UIAlertController(title: "Delete dev", message: "R u sure to delete \(self.storedPerson[index].name)?", preferredStyle: .alert)
+
+        let deleteAction = UIAlertAction(title: "YES", style: .default, handler: { [unowned self] _ in
+            self.viewModel.deletePerson(personName: self.storedPerson[index].name)
+            self.refresh()
+        })
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in
+        })
+
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension StoredPersonsListViewController: UITableViewDelegate, UITableViewDataSource {
