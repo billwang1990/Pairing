@@ -177,7 +177,7 @@ struct MainViewModel {
     func getPairInActivePerson(defaultPersonsName: [(name: String, isActive: Bool)], lastPersonsSortList: [String]) -> (Array<String>, Array<String>) {
         var lastPersonsSortListWithoutInActivePerson = lastPersonsSortList
          var pairInActivePersonList = [String]()
-        for (index, personTuple) in defaultPersonsName.enumerated() {
+        for (_, personTuple) in defaultPersonsName.enumerated() {
             var userPair: String = ""
             let (name, isActive) = personTuple
             
@@ -203,8 +203,8 @@ struct MainViewModel {
     
     func getNewPerson(activePersonsName: [(name: String, isActive: Bool)], lastPersonsSortList: [String]) -> Array<String> {
         var newPersonList = [String]()
-        for (index, personTuple) in activePersonsName.enumerated() {
-            let (name, isActive) = personTuple
+        for (_, personTuple) in activePersonsName.enumerated() {
+            let (name, _) = personTuple
             let userIndexInLastSort = lastPersonsSortList.index(of: name)
             if (userIndexInLastSort != nil) {
                 continue
