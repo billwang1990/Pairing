@@ -118,10 +118,7 @@ struct MainViewModel {
     }
     
     @discardableResult func generatePairs(includeInactivePerson: Bool = true) -> [Pairing] {
-        let personsName = retrievePersons(includeInactivePerson: includeInactivePerson).sorted { _ in
-            return Int(arc4random_uniform(100)) > 50
-        }
-        
+
         let defaultPersonsName = retrievePersons(includeInactivePerson: true)
         let activePersonsName = retrievePersons(includeInactivePerson: false)
         var lastPersonsSortList = [String]()
@@ -146,10 +143,10 @@ struct MainViewModel {
         var result: [Pairing] = []
         
        
-        while startIndex < personsName.count {
-            let firstGuy = personsName[startIndex]
-            let secondGuy = startIndex+1 < personsName.count ? personsName[startIndex+1] : nil
-            result.append(Pairing(firstPersonName: firstGuy.name, secondPersonName: secondGuy?.name))
+        while startIndex < currentSort.count {
+            let firstGuy = currentSort[startIndex]
+            let secondGuy = startIndex+1 < currentSort.count ? currentSort[startIndex+1] : nil
+            result.append(Pairing(firstPersonName: firstGuy, secondPersonName: secondGuy))
             startIndex += 2
         }
         
