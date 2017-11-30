@@ -239,55 +239,38 @@ struct MainViewModel {
 }
 
 func getUnRepeatPairOrder(numberOfPerson: Int) -> Array<Int> {
-    // TODO: refactor the whole algorithm
-    var OCCUPIED = -1
-    var FREE = 0
-    var width = numberOfPerson
-    var lastRow = numberOfPerson - 1
-    var numberOfDiagonals = 2 * numberOfPerson - 1
-    var columns = Array(repeating: -1, count: numberOfPerson)
-    var leftDiagonals = Array(repeating: 0, count: numberOfDiagonals)
-    var rightDiagonals = Array(repeating: 0, count: numberOfDiagonals)
-    var solutions = Array<Array<Int>>()
-    
-    func calculate(raw: Int = 0) {
-        for column in 0..<width {
-            let ixDiag1 = column + raw
-            let ixDiag2 = width - 1 - raw + column
-            
-            if columns[column] >= 0 {
-                continue
+    let upperlim = (1 << numberOfPerson) - 1
+    var solutions:Array<Array<Int>> = []
+    var oneResult: Array<Int> = []
+    func find(row:Int, ld:Int, rd:Int, result: Array<Int>) {
+        if row == upperlim {
+            solutions.append(result)
+        } else {
+            var pos = upperlim & (~(row | ld | rd))
+            while (pos != 0) {
+                var nextResult = result
+                let p = pos & (~pos + 1)
+                nextResult.append(p)
+                pos = pos - p
+                find(row: (row|p), ld: (ld|p)<<1, rd: (rd|p)>>1, result: nextResult)
             }
             
-            if leftDiagonals[ixDiag1] == OCCUPIED {
-                continue
-            }
-            
-            if rightDiagonals[ixDiag2] == OCCUPIED {
-                continue
-            }
-            
-            columns[column] = raw
-            leftDiagonals[ixDiag1] = OCCUPIED
-            rightDiagonals[ixDiag2] = OCCUPIED
-            
-            
-            if raw == lastRow {
-                solutions.append(columns)
-            } else {
-                calculate(raw: raw + 1)
-            }
-            
-            columns[column] = -1
-            leftDiagonals[ixDiag1] = FREE
-            rightDiagonals[ixDiag2] = FREE
         }
     }
-    calculate()
-    let numberOfSolution = solutions.count
     
+    find(row: 0,ld: 0, rd:0, result: oneResult)
+    let numberOfSolution = solutions.count
     let randomOrder = Int(arc4random_uniform(UInt32(numberOfSolution)))
-    return solutions[randomOrder]
+    let theRandomSolution = solutions[randomOrder]
+    let rules = theRandomSolution.sorted()
+    
+    var finalSolution: Array<Int> = []
+    for num in theRandomSolution {
+        let theIndex = rules.index(of: num)
+        finalSolution.append(theIndex!)
+    }
+    
+    return finalSolution
 }
 
 extension Array {
